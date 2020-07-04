@@ -116,7 +116,7 @@ async def async_setup(hass, config):
                 try:
                     headers = {'Token': token }
 
-                    r = requests.post(base_url + url, headers=headers, data=payload, timeout=20)
+                    r = requests.post(base_url + url, headers=headers, data=payload, timeout=2)
                     r.raise_for_status()
                     data = r.json()
 
@@ -124,7 +124,7 @@ async def async_setup(hass, config):
                         return data['data']
                     else:
                         loginPayload = { 'account': account, 'pwd': password }
-                        r = requests.post(global_url + 'v1/Common/CrossLogin', headers=headers, data=loginPayload, timeout=20)
+                        r = requests.post(global_url + 'v1/Common/CrossLogin', headers=headers, data=loginPayload, timeout=2)
                         r.raise_for_status()
                         data = r.json()
                         base_url = data['api']
