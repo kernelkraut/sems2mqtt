@@ -1,3 +1,5 @@
+# Credit for the bulk of this code goes to BOUWEW (https://github.com/bouwew/sems2mqtt) - I have added additional sensors to this for my own use requirements
+
 # GoodWe SEMS Portal MQTT Component for Home Assistant
 Home Assistant component for accessing the GoodWe SEMS Portal API.
 Adapted from https://github.com/TimSoethout/goodwe-sems-home-assistant but altered to use the SEMS API.
