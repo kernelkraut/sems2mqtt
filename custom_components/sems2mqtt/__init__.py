@@ -34,7 +34,7 @@ from homeassistant.helpers.event import async_track_time_interval
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 
-__version__ = '0.1.10'
+__version__ = '0.1.10-1'
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -99,8 +99,11 @@ async def async_setup(hass, config):
                     'emonth_kwh' : str(round(float(inverterData['thismonthetotle']+inverterData['eday']), 1)),
                     'grid_voltage' : str(inverterData['vac1']),
                     'grid_frequency' : str(inverterData['fac1']),
+                    'grid_import' : str(inverterData['pmeter']),
                     'battery_soc' : str(inverterData['soc']),
-                    'battery_soh' : str(inverterData['soh'])
+                    'battery_soh' : str(inverterData['soh']),
+                    'inverter_output_amp' : str(inverterData['iload']),
+                    'inverter_output_watt' : str(inverterData['outputpower'])
                     }
             
             return result
@@ -268,6 +271,20 @@ async def async_setup(hass, config):
                                                     'manufacturer':'GoodWe'
                                                     }
                                     }
+            payload_grid_import =    {
+                                    'name':'sems_grid_import',
+                                    'unit_of_meas':'W',
+                                    'value_template':'{{ value_json.grid_import }}',
+                                    'icon':'mdi:transmission-tower',
+                                    'state_topic':'sems/sensors',
+                                    'unique_id':'sems_grid_import_sensor',
+                                        'device':   {
+                                                    'identifiers':'Goodwe Inverter',
+                                                    'name':'GoodWe Inverter',
+                                                    'model':data['type'],
+                                                    'manufacturer':'GoodWe'
+                                                    }
+                                    }
             payload_battery_soc =       {
                                     'name':'sems_battery_soc',
                                     'unit_of_meas':'%',
@@ -289,6 +306,34 @@ async def async_setup(hass, config):
                                     'icon':'mdi:medical-bag',
                                     'state_topic':'sems/sensors',
                                     'unique_id':'sems_battery_soh_sensor',
+                                        'device':   {
+                                                    'identifiers':'Goodwe Inverter',
+                                                    'name':'GoodWe Inverter',
+                                                    'model':data['type'],
+                                                    'manufacturer':'GoodWe'
+                                                    }
+                                    }
+            payload_inverter_output_amp =       {
+                                    'name':'sems_inverter_output_amp',
+                                    'unit_of_meas':'amp',
+                                    'value_template':'{{ value_json.inverter_output_amp }}',
+                                    'icon':'mdi:current-ac',
+                                    'state_topic':'sems/sensors',
+                                    'unique_id':'sems_inverter_output_amp_sensor',
+                                        'device':   {
+                                                    'identifiers':'Goodwe Inverter',
+                                                    'name':'GoodWe Inverter',
+                                                    'model':data['type'],
+                                                    'manufacturer':'GoodWe'
+                                                    }
+                                    }
+            payload_inverter_output_watt =       {
+                                    'name':'sems_inverter_output_watt',
+                                    'unit_of_meas':'W',
+                                    'value_template':'{{ value_json.inverter_output_watt }}',
+                                    'icon':'mdi:flash',
+                                    'state_topic':'sems/sensors',
+                                    'unique_id':'sems_inverter_output_watt_sensor',
                                         'device':   {
                                                     'identifiers':'Goodwe Inverter',
                                                     'name':'GoodWe Inverter',
