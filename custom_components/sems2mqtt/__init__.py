@@ -87,7 +87,7 @@ async def async_setup(hass, config):
             ''' Download the most recent readings from the GoodWe API. '''
             status = { -1 : 'Offline', 0 : 'Waiting', 1 : 'Online', None : 'Unknown' }
             payload = {'powerStationId' : station_id}
-            data = await call("v1/PowerStation/GetMonitorDetailByPowerstationId", payload)
+            data = await call("v2/PowerStation/GetMonitorDetailByPowerstationId", payload)
             inverterData = data['inverter'][0]['invert_full']
             result = {
                     'type'  : inverterData['model_type'],
@@ -97,6 +97,8 @@ async def async_setup(hass, config):
                     'eday_kwh' : str(inverterData['eday']),
                     'etotal_kwh' : str(inverterData['etotal']),
                     'emonth_kwh' : str(round(float(inverterData['thismonthetotle']+inverterData['eday']), 1)),
+                    'daily_kwh' : str(inverterData['buy']),
+                    'lifetime_kwh' : str(inverterData['yesterdaybuytotal']),
                     'grid_voltage' : str(inverterData['vac1']),
                     'grid_frequency' : str(inverterData['fac1']),
                     'grid_import' : str(inverterData['pmeter']),
@@ -127,7 +129,7 @@ async def async_setup(hass, config):
                         return data['data']
                     else:
                         loginPayload = { 'account': account, 'pwd': password }
-                        r = await hass.async_add_executor_job(issuePost, global_url + 'v1/Common/CrossLogin', headers, loginPayload, 20)
+                        r = await hass.async_add_executor_job(issuePost, global_url + 'v2/Common/CrossLogin', headers, loginPayload, 20)
                         r.raise_for_status()
                         data = r.json()
                         base_url = data['api']
