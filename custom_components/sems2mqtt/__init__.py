@@ -98,7 +98,7 @@ async def async_setup(hass, config):
                     'eday_kwh' : str(inverterData['eday']),
                     'etotal_kwh' : str(inverterData['etotal']),
                     'emonth_kwh' : str(round(float(inverterData['thismonthetotle']+inverterData['eday']), 1)),
-                    'daily_kwh' : str(energyData),
+                    'daily_kwh' : str(energyData[]),
                     'lifetime_kwh' : str(inverterData['yesterdaybuytotal']),
                     'grid_voltage' : str(inverterData['vac1']),
                     'grid_frequency' : str(inverterData['fac1']),
