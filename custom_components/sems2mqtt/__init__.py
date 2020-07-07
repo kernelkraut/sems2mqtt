@@ -252,7 +252,7 @@ async def async_setup(hass, config):
             payload_daily_kwh =        {
                                     'name':'sems_imported_today',
                                     'unit_of_meas':'kWh',
-                                    'value_template':'{{ value_json.emonth_kwh }}',
+                                    'value_template':'{{ value_json.daily_kwh }}',
                                     'icon':'mdi:flash',
                                     'state_topic':'sems/sensors',
                                     'unique_id':'sems_imported_today_sensor',
@@ -266,7 +266,7 @@ async def async_setup(hass, config):
             payload_lifetime_kwh =        {
                                     'name':'sems_imported_lifetime',
                                     'unit_of_meas':'kWh',
-                                    'value_template':'{{ value_json.emonth_kwh }}',
+                                    'value_template':'{{ value_json.lifetime_kwh }}',
                                     'icon':'mdi:flash',
                                     'state_topic':'sems/sensors',
                                     'unique_id':'sems_imported_lifetime_sensor',
