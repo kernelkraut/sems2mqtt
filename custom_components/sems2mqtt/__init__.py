@@ -89,7 +89,6 @@ async def async_setup(hass, config):
             payload = {'powerStationId' : station_id}
             data = await call("v2/PowerStation/GetMonitorDetailByPowerstationId", payload)
             inverterData = data['inverter'][0]['invert_full']
-            energyData = data['energeStatisticsCharts']
             result = {
                     'type'  : inverterData['model_type'],
                     'status'  : status[inverterData['status']],
@@ -98,7 +97,7 @@ async def async_setup(hass, config):
                     'eday_kwh' : str(inverterData['eday']),
                     'etotal_kwh' : str(inverterData['etotal']),
                     'emonth_kwh' : str(round(float(inverterData['thismonthetotle']+inverterData['eday']), 1)),
-                    'daily_kwh' : str(energyData['consumptionOfLoad']),
+                    'daily_kwh' : str(inverterData['buy']),
                     'lifetime_kwh' : str(inverterData['yesterdaybuytotal']),
                     'grid_voltage' : str(inverterData['vac1']),
                     'grid_frequency' : str(inverterData['fac1']),
