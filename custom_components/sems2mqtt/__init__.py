@@ -249,6 +249,34 @@ async def async_setup(hass, config):
                                                     'manufacturer':'GoodWe'
                                                     }
                                     }
+            payload_daily_kwh =        {
+                                    'name':'sems_imported_today',
+                                    'unit_of_meas':'kWh',
+                                    'value_template':'{{ value_json.emonth_kwh }}',
+                                    'icon':'mdi:flash',
+                                    'state_topic':'sems/sensors',
+                                    'unique_id':'sems_imported_today_sensor',
+                                        'device':   {
+                                                    'identifiers':'Goodwe Inverter',
+                                                    'name':'GoodWe Inverter',
+                                                    'model':data['type'],
+                                                    'manufacturer':'GoodWe'
+                                                    }
+                                    }
+            payload_lifetime_kwh =        {
+                                    'name':'sems_imported_lifetime',
+                                    'unit_of_meas':'kWh',
+                                    'value_template':'{{ value_json.emonth_kwh }}',
+                                    'icon':'mdi:flash',
+                                    'state_topic':'sems/sensors',
+                                    'unique_id':'sems_imported_lifetime_sensor',
+                                        'device':   {
+                                                    'identifiers':'Goodwe Inverter',
+                                                    'name':'GoodWe Inverter',
+                                                    'model':data['type'],
+                                                    'manufacturer':'GoodWe'
+                                                    }
+                                    }
             payload_grid_voltage =      {
                                     'name':'sems_grid_voltage',
                                     'unit_of_meas':'VAC',
